@@ -10,9 +10,35 @@ Milestone 3 (BONUS)
 Gestire ulteriori parametri per la password: quali caratteri usare fra numeri, lettere e simboli.
 Possono essere scelti singolarmente (es. solo numeri) oppure possono essere combinati fra loro (es. numeri e simboli, oppure tutti e tre insieme). Dare all’utente anche la possibilità di permettere o meno la ripetizione di caratteri uguali.
 */
+
 include __DIR__ . '/functions.php';
 
-$randomPsw = getRandomPassword($_GET['length']);
+$letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+$numbers = '0123456789';
+$symbols = '@#!$%&?';
+
+
+$characters = '';
+
+if (isset($_POST['letters'])) {
+    // var_dump('vuole lettere');
+    $characters .= $letters;
+}
+if (isset($_POST['numbers'])) {
+    // var_dump('vuole numeri');
+    $characters .= $numbers;
+}
+if (isset($_POST['symbols'])) {
+    //var_dump('vuole simboli');
+    $characters .= $symbols;
+}
+//var_dump($_POST['length']);
+//var_dump($characters);
+//var_dump($_POST['rep']);
+if (isset($_POST['rep'])) {
+    //var_dump($_POST['rep']);
+    $randomPsw = getRandomPassword($_POST['length'], $characters, $_POST['rep']);
+}
 
 ?>
 
@@ -54,7 +80,7 @@ $randomPsw = getRandomPassword($_GET['length']);
     <div class="my_container text-center">
         <h1 class="text-white mt-5 mb-4">Strong Password Generator</h1>
         <h3 class="mb-5">Genera una password sicura</h3>
-        <form action="index.php" method="get" class="my_container text-start">
+        <form action="index.php" method="post" class="my_container text-start">
             <div class="row row-cols-2 g-3 align-items-center">
                 <div class="col-8">
                     <label for="length" class="col-form-label">Inserisci la lunghezza della password da generare:</label>
@@ -67,24 +93,24 @@ $randomPsw = getRandomPassword($_GET['length']);
                 </div>
                 <div class="col-4">
                     <div class="form-check p_label">
-                        <input class="form-check-input" type="radio" name="rep" id="success" checked>
-                        <label class="form-check-label" for="success">Sì</label>
+                        <input class="form-check-input" type="radio" name="rep" value="true" checked>
+                        <label class="form-check-label" for="rep">Sì</label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="rep" id="denied">
-                        <label class="form-check-label" for="denied">No</label>
+                        <input class="form-check-input" type="radio" name="rep" value="false">
+                        <label class="form-check-label" for="rep">No</label>
                     </div>
                     <div class="form-check pt-4">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">Lettere</label>
+                        <input class="form-check-input" type="checkbox" name="letters" id="letters">
+                        <label class="form-check-label" for="letters">Lettere</label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-                        <label class="form-check-label" for="flexCheckChecked">Numeri</label>
+                        <input class="form-check-input" type="checkbox" name="numbers" id="numbers">
+                        <label class="form-check-label" for="numbers">Numeri</label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-                        <label class="form-check-label" for="flexCheckChecked">Simboli</label>
+                        <input class="form-check-input" type="checkbox" name="symbols" id="symbols">
+                        <label class="form-check-label" for="symbols">Simboli</label>
                     </div>
                 </div>
                 <div class="col">
@@ -93,14 +119,14 @@ $randomPsw = getRandomPassword($_GET['length']);
                 </div>
             </div>
         </form>
+        <?php if (isset($_POST['length'])) {
+            if ($_POST['length'] > 0) { ?>
+                <h2>LA TUA PASSWORD è: <?= $randomPsw; ?></h2>
+            <?php } else { ?>
+                <h3>Inserisci una lunghezza corretta</h3>
+        <?php }
+        } ?>
     </div>
-    <?php if (isset($_GET['length'])) {
-        if ($_GET['length'] > 0) { ?>
-            <h1>LA TUA PASSWORD è: <?= $randomPsw; ?></h1>
-        <?php } else { ?>
-            <h2>Inserisci una lunghezza corretta</h2>
-    <?php }
-    } ?>
 
 
 

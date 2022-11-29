@@ -1,12 +1,17 @@
 <?php
-function getRandomPassword($pswLength)
+function getRandomPassword($pswLength, $permittedChars, $reps)
 {
-    $permittedChars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@#!$%&?';
     $password = '';
 
     for ($i = 0; $i < $pswLength; $i++) {
         $index = mt_rand(0, strlen($permittedChars) - 1);
-        if (!str_contains($password, $permittedChars[$index])) {
+        if ($reps) {
+            if (!str_contains($password, $permittedChars[$index])) {
+                $password .= $permittedChars[$index];
+            } else {
+                $i--;
+            }
+        } else {
             $password .= $permittedChars[$index];
         }
     }
