@@ -3,7 +3,20 @@
 Milestone 1
 Creare un form che invii in GET la lunghezza della password. Una nostra funzione utilizzerà questo dato per generare una password casuale (composta da lettere, lettere maiuscole, numeri e simboli) da restituire all’utente. Scriviamo tutto (logica e layout) in un unico file index.php 
 */
+function getRandomPassword($pswLength)
+{
+    $permittedChars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@#!$%&?';
+    $password = '';
 
+    for ($i = 0; $i < $pswLength; $i++) {
+        $index = mt_rand(0, strlen($permittedChars) - 1);
+        $password .= $permittedChars[$index];
+    }
+
+    return $password;
+}
+
+$randomPsw = getRandomPassword($_GET['length']);
 
 ?>
 
@@ -29,6 +42,13 @@ Creare un form che invii in GET la lunghezza della password. Una nostra funzione
             <button type="reset">Annulla</button>
         </div>
     </form>
+    <?php if (isset($_GET['length'])) {
+        if ($_GET['length'] > 0) { ?>
+            <h1>LA TUA PASSWORD è: <?= $randomPsw; ?></h1>
+        <?php } else { ?>
+            <h2>Inserisci una lunghezza corretta</h2>
+    <?php }
+    } ?>
 
 </body>
 
