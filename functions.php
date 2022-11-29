@@ -1,8 +1,9 @@
 <?php
+session_start();
+
 $letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 $numbers = '0123456789';
 $symbols = '@#!$%&?';
-
 
 $characters = '';
 
@@ -18,13 +19,17 @@ if (isset($_POST['symbols'])) {
     //var_dump('vuole simboli');
     $characters .= $symbols;
 }
-//var_dump($_POST['length']);
-//var_dump($characters);
-//var_dump($_POST['rep']);
+
 if (isset($_POST['rep'])) {
     //var_dump($_POST['rep']);
     $randomPsw = getRandomPassword($_POST['length'], $characters, $_POST['rep']);
 }
+
+if ($_POST['length'] > 0) {
+    header('Location: ./password.php');
+}
+$_SESSION["passGen"] = $randomPsw;
+
 
 function getRandomPassword($pswLength, $permittedChars, $reps)
 {
