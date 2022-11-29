@@ -10,10 +10,13 @@ Milestone 3 (BONUS)
 Gestire ulteriori parametri per la password: quali caratteri usare fra numeri, lettere e simboli.
 Possono essere scelti singolarmente (es. solo numeri) oppure possono essere combinati fra loro (es. numeri e simboli, oppure tutti e tre insieme). Dare all’utente anche la possibilità di permettere o meno la ripetizione di caratteri uguali.
 */
+session_start();
 
 include __DIR__ . '/functions.php';
-
-
+if ($_POST['length'] > 0) {
+    header('Location: ./password.php');
+}
+$_SESSION["passGen"] = $randomPsw;
 ?>
 
 <!DOCTYPE html>
@@ -94,9 +97,7 @@ include __DIR__ . '/functions.php';
             </div>
         </form>
         <?php if (isset($_POST['length'])) {
-            if ($_POST['length'] > 0) { ?>
-                <h2>LA TUA PASSWORD è: <?= $randomPsw; ?></h2>
-            <?php } else { ?>
+            if (!$_POST['length'] > 0) { ?>
                 <h3>Inserisci una lunghezza corretta</h3>
         <?php }
         } ?>
