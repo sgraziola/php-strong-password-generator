@@ -6,7 +6,9 @@ function getRandomPassword($pswLength)
 
     for ($i = 0; $i < $pswLength; $i++) {
         $index = mt_rand(0, strlen($permittedChars) - 1);
-        $password .= $permittedChars[$index];
+        if (!str_contains($password, $permittedChars[$index])) {
+            $password .= $permittedChars[$index];
+        }
     }
 
     return $password;
