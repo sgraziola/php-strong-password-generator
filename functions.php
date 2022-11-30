@@ -25,11 +25,13 @@ if (isset($_GET['rep'])) {
     $randomPsw = getRandomPassword($_GET['length'], $characters, $_GET['rep']);
 }
 
-if ($_GET['length'] > 0) {
+if (isset($_GET['length']) > 0) {
     header('Location: ./password.php');
 }
-$_SESSION["passGen"] = $randomPsw;
 
+if (isset($randomPsw)) {
+    $_SESSION["passGen"] = $randomPsw;
+}
 
 function getRandomPassword($pswLength, $permittedChars, $reps)
 {
