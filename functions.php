@@ -7,25 +7,25 @@ $symbols = '@#!$%&?';
 
 $characters = '';
 
-if (isset($_POST['letters'])) {
+if (isset($_GET['letters'])) {
     // var_dump('vuole lettere');
     $characters .= $letters;
 }
-if (isset($_POST['numbers'])) {
+if (isset($_GET['numbers'])) {
     // var_dump('vuole numeri');
     $characters .= $numbers;
 }
-if (isset($_POST['symbols'])) {
+if (isset($_GET['symbols'])) {
     //var_dump('vuole simboli');
     $characters .= $symbols;
 }
 
-if (isset($_POST['rep'])) {
-    //var_dump($_POST['rep']);
-    $randomPsw = getRandomPassword($_POST['length'], $characters, $_POST['rep']);
+if (isset($_GET['rep'])) {
+    //var_dump($_GET['rep']);
+    $randomPsw = getRandomPassword($_GET['length'], $characters, $_GET['rep']);
 }
 
-if ($_POST['length'] > 0) {
+if ($_GET['length'] > 0) {
     header('Location: ./password.php');
 }
 $_SESSION["passGen"] = $randomPsw;

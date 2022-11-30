@@ -53,7 +53,7 @@ include __DIR__ . '/functions.php';
     <div class="my_container text-center">
         <h1 class="text-white mt-5 mb-4">Strong Password Generator</h1>
         <h3 class="mb-5">Genera una password sicura</h3>
-        <form action="index.php" method="post" class="my_container text-start">
+        <form action="index.php" method="GET" class="my_container text-start">
             <div class="row row-cols-2 g-3 align-items-center">
                 <div class="col-8">
                     <label for="length" class="col-form-label">Inserisci la lunghezza della password da generare:</label>
@@ -92,8 +92,8 @@ include __DIR__ . '/functions.php';
                 </div>
             </div>
         </form>
-        <?php if (isset($_POST['length'])) {
-            if (!$_POST['length'] > 0) { ?>
+        <?php if (isset($_GET['length'])) {
+            if (!$_GET['length'] > 0) { ?>
                 <h3>Inserisci una lunghezza corretta</h3>
         <?php }
         } ?>
