@@ -3,9 +3,13 @@ session_start();
 
 $letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 $numbers = '0123456789';
+$symbols = '@#!$%&?}]{[*-=<>~';
 
 $characters = '';
-$symbols = '@#!$%&?}]{[*-=<>~';
+
+if (isset($_GET['length'])) {
+    $lengthChosen = $_GET['length'];
+}
 
 if (isset($_GET['letters'])) {
     // var_dump('vuole lettere');
@@ -20,12 +24,12 @@ if (isset($_GET['symbols'])) {
     $characters .= $symbols;
 }
 
-if (isset($_GET['rep'])) {
+if (isset($_GET['rep']) && isset($lengthChosen)) {
     //var_dump($_GET['rep']);
-    $randomPsw = getRandomPassword($_GET['length'], $characters, $_GET['rep']);
+    $randomPsw = getRandomPassword($lengthChosen, $characters, $_GET['rep']);
 }
 
-if (isset($_GET['length']) > 0) {
+if ($lengthChosen >= 8 && $lengthChosen <= 32) {
     header('Location: ./password.php');
 }
 
