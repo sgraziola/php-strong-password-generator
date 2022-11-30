@@ -3,9 +3,9 @@ session_start();
 
 $letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 $numbers = '0123456789';
-$symbols = '@#!$%&?';
 
 $characters = '';
+$symbols = '@#!$%&?}]{[*-=<>~';
 
 if (isset($_GET['letters'])) {
     // var_dump('vuole lettere');
